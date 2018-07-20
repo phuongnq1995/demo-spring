@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /target/
 !.mvn/wrapper/maven-wrapper.jar
 
@@ -24,6 +25,8 @@
 /nbdist/
 /.nb-gradle/
 
+=======
+>>>>>>> 45edd935f75bb4f791e97dd35640fe01073c73d2
 *.class
 /target
 */target
@@ -86,4 +89,8 @@ crashlytics-build.properties
  Jrebel:
 rebel.xml
 *rebel.xml
+<<<<<<< HEAD
 */rebel.xml
+=======
+*/rebel.xml
+>>>>>>> 45edd935f75bb4f791e97dd35640fe01073c73d2
