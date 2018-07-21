@@ -2,11 +2,13 @@ package com.spring.mvc.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.InitBinder;
@@ -35,7 +37,7 @@ public class HelloController {
 
 	@InitBinder
     private void initBinder(WebDataBinder binder) {
-        binder.setValidator(customerValidator);
+        binder.addValidators(customerValidator);
     }
 
 	@ModelAttribute
@@ -63,7 +65,7 @@ public class HelloController {
 
 	// Put BindingResult after @Valid or @Validated
 	@RequestMapping(value = "submit", method = RequestMethod.POST)
-	public String submit(@Validated CustomerDTO customerDTO, BindingResult bindingResult,
+	public String submit(@Valid CustomerDTO customerDTO, BindingResult bindingResult,
 			RedirectAttributes redirectAttributes) throws Exception {
 		if (bindingResult.hasErrors()) {
 			return "home";
