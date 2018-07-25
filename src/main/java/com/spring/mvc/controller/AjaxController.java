@@ -1,9 +1,11 @@
 package com.spring.mvc.controller;
 
 import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -25,6 +27,9 @@ public class AjaxController {
 
 	@Autowired
 	CustomerService customerService;
+	
+	@Autowired
+	SimpMessagingTemplate template;
 	
 	@ModelAttribute
 	public AjaxDTO getCustomer() {
@@ -61,6 +66,11 @@ public class AjaxController {
 	@RequestMapping("getAjaxHtml")
 	public String getAjaxHtml(Model model) {
 		model.addAttribute("list", customerService.findAll());
+	    Map<String, Object> map = new HashMap<>();
+	    map.put("from", "ajax");
+	    map.put("text", "ajax");
+	    map.put("time", new Date());
+		template.convertAndSend("/topic/messages", map);
 		return "ajaxHtml";
 	}
 }

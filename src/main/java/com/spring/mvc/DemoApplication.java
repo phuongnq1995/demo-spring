@@ -29,8 +29,10 @@ public class DemoApplication {
 		bean.setValidationMessageSource(messageSource());
 		return bean;
 	}
+	
 	@Bean
 	public ModelMapper modelMapper() {
 	    return new ModelMapper();
 	}
+
 }
