@@ -1,7 +1,6 @@
 package com.spring.mvc.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.GetMapping;
 import com.spring.mvc.model.MessageTransaction;
 import com.spring.mvc.service.CustomerService;
@@ -14,7 +13,7 @@ public class RestController {
 	@Autowired
 	CustomerService customerService;
 	
-	@GetMapping(produces = MediaType.APPLICATION_STREAM_JSON_VALUE)
+	@GetMapping
 	Flux<MessageTransaction> list() {
 		return customerService.getCustomerFlux();
 	}

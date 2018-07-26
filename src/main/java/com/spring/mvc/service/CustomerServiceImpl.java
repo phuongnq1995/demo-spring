@@ -1,6 +1,7 @@
 package com.spring.mvc.service;
 
 import java.sql.SQLException;
+import java.text.SimpleDateFormat;
 import java.time.Duration;
 import java.util.ArrayList;
 import java.util.Date;
@@ -82,6 +83,16 @@ public class CustomerServiceImpl implements CustomerService {
 		return customerRepository.findAll();
 	}
 
+	@Override
+	public Flux<MessageTransaction> getCustomerFlux() {
+		Flux<Long> interval = Flux.interval(Duration.ofSeconds(1));
+        //interval.subscribe((i) -> stockList.forEach(stock -> stock.setPrice(changePrice(stock.getPrice()))));
+        Flux<MessageTransaction> stockTransactionFlux = Flux.fromStream(
+        	Stream.generate(() -> new MessageTransaction("", "", new SimpleDateFormat("hh:mm:ss").format(new Date())))
+        );
+        return Flux.zip(interval, stockTransactionFlux).map(Tuple2::getT2);
+	}
+
 	private CustomerEntity getCustomer(CustomerDTO entity) {
 		CustomerEntity customer = new CustomerEntity();
 		customer = modelMapper.map(entity, CustomerEntity.class);
@@ -97,14 +108,6 @@ public class CustomerServiceImpl implements CustomerService {
 			list.add(address);
 		}
 		return list;
-	}
-
-	@Override
-	public Flux<MessageTransaction> getCustomerFlux() {
-		Flux<Long> interval = Flux.interval(Duration.ofSeconds(1));
-        //interval.subscribe((i) -> stockList.forEach(stock -> stock.setPrice(changePrice(stock.getPrice()))));
-        Flux<MessageTransaction> stockTransactionFlux = Flux.fromStream(Stream.generate(() -> new MessageTransaction("", "", new Date())));
-        return Flux.zip(interval, stockTransactionFlux).map(Tuple2::getT2);
 	}
 
 }

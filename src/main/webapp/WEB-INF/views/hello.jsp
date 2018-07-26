@@ -46,6 +46,12 @@
 				}
 			})
 		});
+		
+		var source = new EventSource("/rest");
+		source.onmessage = function(event) {
+			var msg = $.parseJSON(event.data);
+		    $("#result").html(msg.when);
+		};
 	});
 </script>
 <title>Spring Boot</title>
@@ -75,5 +81,8 @@
 	
 	<h2>Div ajax html</h2>
 	<div id="html-result"></div>
+	<h2>SSE div</h2>
+	<div id="result"></div>
+	
 </body>
 </html>
