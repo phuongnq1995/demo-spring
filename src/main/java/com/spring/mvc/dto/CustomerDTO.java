@@ -57,4 +57,10 @@ public class CustomerDTO {
 		this.listAddress = listAddress;
 	}
 
+	@Override
+	public String toString() {
+		return "CustomerDTO [name=" + name + ", email=" + email + ", birthDay=" + birthDay + ", listAddress="
+				+ listAddress + "]";
+	}
+
 }

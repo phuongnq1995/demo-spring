@@ -9,7 +9,6 @@ import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.handler.annotation.MessageMapping;
-import org.springframework.messaging.handler.annotation.Payload;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Controller;
@@ -21,21 +20,21 @@ import com.spring.mvc.service.CustomerService;
 
 @Controller
 public class WebSocketController {
-	
+
 	@Autowired
 	CustomerService service;
-	
+
 	@Autowired
 	SimpMessagingTemplate template;
-	
+
 	@RequestMapping("chatpage")
 	public String index() {
 		return "chat";
 	}
-	
+
 	@MessageMapping("/chat" )
 	@SendTo("/topic/messages")
-	public Map<String, Object> send(@Payload Message message) throws Exception {
+	public Map<String, Object> send(Message message) throws Exception {
 	    String time = new SimpleDateFormat("HH:mm").format(new Date());
 	    Map<String, Object> map = new HashMap<>();
 	    map.put("from", message.getFrom());
@@ -54,4 +53,5 @@ public class WebSocketController {
 	    map.put("customer", array);
 	    return map;
 	}
+
 }
